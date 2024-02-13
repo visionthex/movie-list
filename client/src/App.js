@@ -1,4 +1,9 @@
 import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import './Styles/app.css';
+import NavBar from './Components/NavBar';
+import Home from './Components/Home';
+import AddMovie from './Components/AddMovie';
 
 function App() {
   const [movies, setMovies] = useState([]);
@@ -6,16 +11,16 @@ function App() {
   const [error, setError] = useState(null);
 
   const fetchMovies = (query = '') => {
-    fetch(`http://localhost:3000/movies${query ? `?q=${encodeURIComponent(query)}` : ''}`)
+    fetch(`http://localhost:3001/movies${query ? `?q=${encodeURIComponent(query)}` : ''}`)
       .then(response => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         return response.json();
       })
-      .then(data => {
-        console.log('Received movies:', data);
-        setMovies(data);
+      .then(json => {
+        console.log('Received movies:', json);
+        setMovies(json);
         setError(null);
       })
       .catch(error => {
@@ -35,25 +40,13 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <h1>Movie-List</h1>
-      <form onSubmit={handleSearch}>
-        <input type="search" value={search} onChange={e => setSearch(e.target.value)} placeholder="Search movies..." />
-        <input type="submit" value="Movie" />
-      </form>
-      {error && <p>{error}</p>}
-      <ul>
-        {movies.map((movie) => (
-          <li key={movie.id}>
-            <h2>{movie.title} ({movie.year})</h2>
-            <p>Director: {movie.director}</p>
-            <p>{movie.oscar ? 'Has Oscars' : 'Has no Oscars'}</p>
-            <p>Review: {movie.review}</p>
-            <p>Rating: {movie.rating}</p>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <Router>
+      <NavBar />
+      <Routes>
+        <Route path="/" element={<Home movies={movies} handleSearch={handleSearch} search={search} setSearch={setSearch} error={error} />} />
+        <Route path="/addmovie" element={<AddMovie />} />
+      </Routes>
+    </Router>
   );
 }
 

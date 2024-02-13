@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;900&display=swap');
+
+.AddMovie {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  font-family: "Cinzel", serif;
+}
+
+.AddMovie ul {
+  list-style-type: none;
+  padding: 0;
+  font-family: "Cinzel", serif;
+}
+
+.AddMovie li {
+  margin-bottom: 10px;
+  font-family: "Cinzel", serif;
+}

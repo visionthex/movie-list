@@ -1,0 +1,35 @@
+/* App.css */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;900&display=swap');
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: "Cinzel", serif;
+}
+
+.App form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Cinzel", serif;
+}
+
+.App ul {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: flex-start;
+  font-family: "Cinzel", serif;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.App ul li {
+  text-align: left;
+  width: fit-content;
+  font-family: "Cinzel", serif;
+}
