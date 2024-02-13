@@ -2,6 +2,7 @@ import express from 'express';
 import knex from 'knex';
 import knexfile from './knexfile.js';
 import cors from 'cors';
+import Fuse from 'fuse.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -13,15 +14,20 @@ app.get("/", (req, res) => {
     res.send("Welcome to the Movie-List Server!");
 });
 
-app.get("/movies", (req, res) => {
-    console.log('Received request for /movies');
-    db.select().from('movies').then(data => {
-        console.log('Sending data:', data);
-        res.json(data);
-    }).catch(err => {
-        console.error('Database query failed:', err);
-        res.status(500).json({ error: 'Database query failed' });
-    });
+app.get('/movies', async (req, res) => {
+    const query = req.query.q;
+    let movies = await db.select('*').from('movies');
+
+    if (query) {
+        const options = {
+            keys: ['title'],
+            includeScore: true
+        };
+            const fuse = new Fuse(movies, options);
+            movies = fuse.search(query).map(match => match.item);
+    }
+
+    res.json(movies);
 });
 
 app.listen(PORT, () => {

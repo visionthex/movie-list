@@ -45,6 +45,7 @@
     "forwarded": "^0.2.0",
     "fresh": "^0.5.2",
     "function-bind": "^1.1.2",
+    "fuse.js": "^7.0.0",
     "get-intrinsic": "^1.2.4",
     "get-package-type": "^0.1.0",
     "getopts": "^2.3.0",
